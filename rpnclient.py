@@ -1,6 +1,6 @@
 #calculator_client.py
 #@author Glenda
-#@version 10/28/1028
+#@version 10/29/1028
 #client for RPN calculator without input syntex check
 
 import socket
@@ -13,6 +13,9 @@ ACK="ACKNOWLEDGE"
 #initialize client
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 s.connect((HOST,PORT))
+if(len(sys.argv)<3):
+	print 'No input function.'
+	sys.exit()
 input_str=sys.argv[2].split()
 
 stk=[]
