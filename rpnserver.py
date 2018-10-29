@@ -7,17 +7,12 @@
 import socket
 import sys
 
+HOST='127.0.0.1'
 if(len(sys.argv)<=1):
-	print 'Using default port name:rpncalc, port number:65432'
-	HOST='rpncalc'
+	print 'Using default port number:65432'
 	PORT=65432
 elif(len(sys.argv)==2):
-	print 'Using default port number:65432'
-	HOST=sys.argv[1]
-	PORT=65432
-else:
-	HOST=sys.argv[1]
-	PORT=int(sys.argv[2])				#port to listen on
+	PORT=int(sys.argv[1])
 
 #establish connection
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)

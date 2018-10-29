@@ -1,0 +1,49 @@
+C - command or output on client
+S - command or output on server
+
+sample 1.
+S->python rpnserver.py
+C->python rpnclient.py 65432 "245 549 +"
+S->Server Recieved:"245 549 +"
+C->Client Received Final:794
+
+sample 2.
+S->python rpnserver.py 5600
+C->python rpnclient.py 5600 "25 5 * 60 +"
+S->Server Recieved:"25 5 *"
+C->Client Received:125
+S->Server Recieved:"125 60 +"
+C->Client Received Final:185
+
+sample 3.
+S->python rpnserver.py 5600
+C->python rpnclient.py 5600 "25 5 60 + *"
+S->Server Recieved:"5 60 +"
+C->Client Received:65
+S->Server Recieved:"25 65 *"
+C->Client Received Final:1625
+
+sample 4.
+S->python rpnserver.py 5600
+C->python rpnclient.py 5600 "25 5 60 +"
+S->Server Recieved:"5 60 +"
+C->Input syntex error: no enough operators.
+C->Client Received Final:65
+
+sample 5.
+S->python rpnserver.py 5600
+C->python rpnclient.py 5600 "25 5 60 + * /"
+S->Server Recieved:"5 60 +"
+C->Client Received:65
+S->Server Recieved:"25 65 *"
+C->Client Received:1625
+C->Input syntex error at /
+
+sample 6.
+S->python rpnserver.py 5600
+C->python rpnclient.py 5600 "25 60 60 - /"
+S->Server Recieved:"60 60 -"
+C->Client Received:0
+C->Can not devide by 0.
+
+
