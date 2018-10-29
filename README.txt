@@ -1,6 +1,3 @@
-Name: 				Xiaofu Niu
-GT ID:				903438953
-E-Mail:				xiaofu.niu@gatech.edu
 Class Name: 		CS 6250 - Computer Network
 Date: 				Oct.28 2018
 Assignment: 		Programming Assignment
