@@ -8,6 +8,8 @@ import socket
 import sys
 
 HOST='127.0.0.1'
+BUFF_SIZE=1024
+OVERFLOW='OVERFLOW'
 if(len(sys.argv)<=1):
 	print 'Using default port number:65432'
 	PORT=65432
@@ -22,9 +24,10 @@ while True:
 	#wait for client connection
 	s.listen(1)
 	conn,addr=s.accept()
+	print "=============================================="
 	#keep receiving instructions from client
 	while True:
-		recv_str=conn.recv(1024)
+		recv_str=conn.recv(BUFF_SIZE)
 		#send acknowledgement
 		if(recv_str==''):
 			conn.close()
@@ -43,5 +46,12 @@ while True:
 		elif data[2]=='*':
 			result=op1*op2
 		elif data[2]=='/':
-			result=op1/op2
-		conn.send(str(result))
+			if(op1*op2<0 and op1%op2!=0):#6/-132=0
+				result=op1/op2+1
+			else:
+				result=op1/op2
+		#OVERFLOW case
+		if(sys.getsizeof(result)>BUFF_SIZE):
+			conn.send(OVERFLOW)
+		else:
+			conn.send(str(result))
